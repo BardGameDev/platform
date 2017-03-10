@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
 	public GameObject player;
 	public Transform camera;
 
+	public GameObject cubePrefab;
+
 	private float offsetX;
 	private float offsetZ;
 	public float speed;
@@ -47,11 +49,26 @@ public class PlayerController : MonoBehaviour {
 
 		playerRB.AddTorque (torqueMovement * (speed * 2));
 		// I felt like giving a higher precedence to torque but I actually dont know if this does anything
-		playerRB.AddForce (forceMovement * (speed * 2/3));
+		if (playerRB.velocity.x < 2 * speed && playerRB.velocity.z < 2 * speed && playerRB.velocity.x > -2 * speed && playerRB.velocity.z > -2 * speed)
+		{
+			playerRB.AddForce(forceMovement * (speed * 2 / 3));
+		}
 
 		if (Input.GetKeyDown (KeyCode.Space)) { 
 			if (!inAir) {
 				playerRB.AddForce (jump); //This code is useful if you want to implement double jump so I'll just leave it
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.LeftShift))
+		{
+			if (!cubePrefab.activeSelf)
+			{
+				cubePrefab.SetActive(true);
+			}
+			else if (cubePrefab.activeSelf)
+			{
+				cubePrefab.SetActive(false);
 			}
 		}
 	}
@@ -64,6 +81,21 @@ public class PlayerController : MonoBehaviour {
 			// The tag can also just be placed on all ground objects
 
 			inAir = false; 
+		}
+
+		if (Other.gameObject.CompareTag("Switch"))
+		{
+			Other.gameObject.SetActive(false);
+			SwitchManager.switchCount++;
+			Debug.LogWarning(SwitchManager.switchCount);
+			//FROM THE TUTORIAL: score++;
+			//FROM THE TUTORIAL: scoreText.text = "Score: " + score;
+		}
+
+		if (Other.gameObject.CompareTag("Bounce"))
+		{
+			Other.gameObject.SetActive(false);
+			playerRB.velocity = new Vector3(playerRB.velocity.x, playerRB.velocity.y + jumpSpeed, playerRB.velocity.z);
 		}
 
 	}
