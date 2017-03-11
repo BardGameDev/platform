@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate(){
 
+		Debug.LogWarning (playerRB.velocity.z);
 		/* Adding both torque and force at the same time
 		 gives you good control at lower speed but still
 		 leaves the ability to accelerate */
@@ -49,7 +50,8 @@ public class PlayerController : MonoBehaviour {
 
 		playerRB.AddTorque (torqueMovement * (speed * 2));
 		// I felt like giving a higher precedence to torque but I actually dont know if this does anything
-		if (playerRB.velocity.x < 2 * speed && playerRB.velocity.z < 2 * speed && playerRB.velocity.x > -2 * speed && playerRB.velocity.z > -2 * speed)
+		// The following if statement ensures that the ball does not continue to accelerate indefinitely
+		if (playerRB.velocity.x < speed && playerRB.velocity.z < speed && playerRB.velocity.x > -speed && playerRB.velocity.z > -speed)
 		{
 			playerRB.AddForce(forceMovement * (speed * 2 / 3));
 		}
@@ -60,6 +62,7 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
+		//Kirby's Down B
 		if (Input.GetKeyDown(KeyCode.LeftShift))
 		{
 			if (!cubePrefab.activeSelf)
@@ -83,6 +86,9 @@ public class PlayerController : MonoBehaviour {
 			inAir = false; 
 		}
 
+		//Both of these compareTags are in the player controller script because they regard the deactivation of gameObjects
+
+		//find all the switches, and the door opens (if there are any switches at all)
 		if (Other.gameObject.CompareTag("Switch"))
 		{
 			Other.gameObject.SetActive(false);
@@ -92,10 +98,12 @@ public class PlayerController : MonoBehaviour {
 			//FROM THE TUTORIAL: scoreText.text = "Score: " + score;
 		}
 
+		//the bouncy pills
+
 		if (Other.gameObject.CompareTag("Bounce"))
 		{
 			Other.gameObject.SetActive(false);
-			playerRB.velocity = new Vector3(playerRB.velocity.x, playerRB.velocity.y + jumpSpeed, playerRB.velocity.z);
+			playerRB.velocity = new Vector3(playerRB.velocity.x, playerRB.velocity.y + jumpSpeed/50, playerRB.velocity.z);
 		}
 
 	}
