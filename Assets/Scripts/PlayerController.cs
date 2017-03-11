@@ -106,6 +106,13 @@ public class PlayerController : MonoBehaviour {
 			playerRB.velocity = new Vector3(playerRB.velocity.x, playerRB.velocity.y + jumpSpeed/50, playerRB.velocity.z);
 		}
 
+		//the breakable surfaces
+
+		if (Other.gameObject.CompareTag ("Breakable") && cubePrefab.activeSelf) 
+		{
+			Other.gameObject.SetActive(false);
+		}
+
 	}
 
 	void OnTriggerStay(Collider Other) {
