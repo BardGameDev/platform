@@ -12,14 +12,17 @@ public class ResetCubeController : MonoBehaviour {
 
 	private GameObject[] bouncePills;
 
+    private GameObject[] breakables;
+
 	void Start() {
 		startpos = player.transform.position;
 		playerRB = player.GetComponent<Rigidbody> ();
 
 		//reference to aray for double jumping
 
-		bouncePills = GameObject.FindGameObjectsWithTag ("Bounce");
-	}
+		bouncePills = GameObject.FindGameObjectsWithTag("Bounce");
+        breakables = GameObject.FindGameObjectsWithTag("Breakable");
+    }
 
 	void OnTriggerEnter(Collider Other) {}
 
@@ -38,8 +41,15 @@ public class ResetCubeController : MonoBehaviour {
 					bouncePills[x].SetActive (true);
 				}
 			}
+            for (int x = 0; x < breakables.Length; x++)
+            {
+                if (!breakables[x].activeSelf)
+                {
+                    breakables[x].SetActive(true);
+                }
+            }
 
-			SwitchManager.Reset();
+            SwitchManager.Reset();
 		}
 	}
 }

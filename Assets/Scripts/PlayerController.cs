@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate(){
 
-		Debug.LogWarning (playerRB.velocity.z);
+		Debug.LogWarning (playerRB.velocity.y);
 		/* Adding both torque and force at the same time
 		 gives you good control at lower speed but still
 		 leaves the ability to accelerate */
@@ -48,7 +48,9 @@ public class PlayerController : MonoBehaviour {
 		
 		Vector3 jump = new Vector3 (0.0f, jumpSpeed, 0.0f);
 
-		playerRB.AddTorque (torqueMovement * (speed * 2));
+        playerRB.AddTorque(torqueMovement * (speed * 2));
+
+
 		// I felt like giving a higher precedence to torque but I actually dont know if this does anything
 		// The following if statement ensures that the ball does not continue to accelerate indefinitely
 		if (playerRB.velocity.x < speed && playerRB.velocity.z < speed && playerRB.velocity.x > -speed && playerRB.velocity.z > -speed)
@@ -58,14 +60,14 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Space)) { 
 			if (!inAir) {
-				playerRB.AddForce (jump); //This code is useful if you want to implement double jump so I'll just leave it
+				playerRB.AddForce(jump); //This code is useful if you want to implement double jump so I'll just leave it
 			}
 		}
 
 		//Kirby's Down B
 		if (Input.GetKeyDown(KeyCode.LeftShift))
 		{
-			if (!cubePrefab.activeSelf)
+            if (!cubePrefab.activeSelf)
 			{
 				cubePrefab.SetActive(true);
 			}
@@ -77,7 +79,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider Other) {
-		if (Other.gameObject.CompareTag("Jumpable")){
+		if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
+        {
 			// This was the best way I found for specifying where you can jump
 			// In order to implement this you need to have a mesh collider that
 			// covers the surface of the area you want to let the player jump on
@@ -108,7 +111,7 @@ public class PlayerController : MonoBehaviour {
 
 		//the breakable surfaces
 
-		if (Other.gameObject.CompareTag ("Breakable") && cubePrefab.activeSelf) 
+		if (Other.gameObject.CompareTag ("Breakable") && cubePrefab.activeSelf && playerRB.velocity.y < -10) 
 		{
 			Other.gameObject.SetActive(false);
 		}
@@ -116,7 +119,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider Other) {
-		if (Other.gameObject.CompareTag("Jumpable")){
+		if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
+        {
 			inAir = false;
 		}
 
