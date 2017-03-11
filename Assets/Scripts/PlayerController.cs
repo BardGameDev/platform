@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
 		
 		Vector3 jump = new Vector3 (0.0f, jumpSpeed, 0.0f);
 
-        if (!inHalfPipe && !inAir)
+        if (!inHalfPipe)
         {
             playerRB.AddTorque(torqueMovement * (speed * 2));
 
@@ -99,6 +99,10 @@ public class PlayerController : MonoBehaviour {
             }
             else
             {
+                if (cubePrefab.activeSelf)
+                {
+                    cubePrefab.SetActive(false);
+                }
                 inHalfPipe = true;
             }
         }
@@ -142,6 +146,10 @@ public class PlayerController : MonoBehaviour {
             }
             else
             {
+                if (cubePrefab.activeSelf)
+                {
+                    cubePrefab.SetActive(false);
+                }
                 inHalfPipe = true;
             }
         }
@@ -150,6 +158,5 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerExit(Collider Other) {
 		inAir = true; // Whenever you leave a trigger its probably because you're in the air.
-        inHalfPipe = false; //Can't be in a half pipe if we're in the air, my dudes.
 	}
 }
