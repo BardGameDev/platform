@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
 	public float jumpSpeed;
 
 	private bool inAir;
+    private bool inHalfPipe; //determines whether the player is in a halfpipe
 	private bool PowerUpDoubleJump;
 
 	void Start(){
@@ -48,24 +49,28 @@ public class PlayerController : MonoBehaviour {
 		
 		Vector3 jump = new Vector3 (0.0f, jumpSpeed, 0.0f);
 
-        playerRB.AddTorque(torqueMovement * (speed * 2));
+        if (!inHalfPipe && !inAir)
+        {
+            playerRB.AddTorque(torqueMovement * (speed * 2));
 
+            // I felt like giving a higher precedence to torque but I actually dont know if this does anything
+            // The following if statement ensures that the ball does not continue to accelerate indefinitely
+            if (playerRB.velocity.x < speed && playerRB.velocity.z < speed && playerRB.velocity.x > -speed && playerRB.velocity.z > -speed)
+            {
+                playerRB.AddForce(forceMovement * (speed * 2 / 3));
+            }
 
-		// I felt like giving a higher precedence to torque but I actually dont know if this does anything
-		// The following if statement ensures that the ball does not continue to accelerate indefinitely
-		if (playerRB.velocity.x < speed && playerRB.velocity.z < speed && playerRB.velocity.x > -speed && playerRB.velocity.z > -speed)
-		{
-			playerRB.AddForce(forceMovement * (speed * 2 / 3));
-		}
-
-		if (Input.GetKeyDown (KeyCode.Space)) { 
-			if (!inAir) {
-				playerRB.AddForce(jump); //This code is useful if you want to implement double jump so I'll just leave it
-			}
-		}
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (!inAir)
+                {
+                    playerRB.AddForce(jump); //This code is useful if you want to implement double jump so I'll just leave it
+                }
+            }
+        }
 
 		//Kirby's Down B
-		if (Input.GetKeyDown(KeyCode.LeftShift))
+		if (Input.GetKeyDown(KeyCode.LeftShift) && !inHalfPipe)
 		{
             if (!cubePrefab.activeSelf)
 			{
@@ -79,7 +84,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider Other) {
-		if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
+		if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable") || Other.gameObject.CompareTag("Halfpipe"))
         {
 			// This was the best way I found for specifying where you can jump
 			// In order to implement this you need to have a mesh collider that
@@ -87,7 +92,16 @@ public class PlayerController : MonoBehaviour {
 			// The tag can also just be placed on all ground objects
 
 			inAir = false; 
-		}
+
+            if (!Other.gameObject.CompareTag("Halfpipe"))
+            {
+                inHalfPipe = false;
+            }
+            else
+            {
+                inHalfPipe = true;
+            }
+        }
 
 		//Both of these compareTags are in the player controller script because they regard the deactivation of gameObjects
 
@@ -119,14 +133,23 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider Other) {
-		if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
+		if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable") || Other.gameObject.CompareTag("Halfpipe"))
         {
 			inAir = false;
-		}
+            if (!Other.gameObject.CompareTag("Halfpipe"))
+            {
+                inHalfPipe = false;
+            }
+            else
+            {
+                inHalfPipe = true;
+            }
+        }
 
 	}
 
 	void OnTriggerExit(Collider Other) {
 		inAir = true; // Whenever you leave a trigger its probably because you're in the air.
+        inHalfPipe = false; //Can't be in a half pipe if we're in the air, my dudes.
 	}
 }
