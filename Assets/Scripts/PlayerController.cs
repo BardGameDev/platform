@@ -169,9 +169,5 @@ public class PlayerController : MonoBehaviour {
 	void OnTriggerExit(Collider Other) {
         inAir = true; // Whenever you leave a trigger its probably because you're in the air.
         inHalfPipe = false;
-        if (Other.gameObject.CompareTag("ControlInversion"))
-        {
-            speed = -speed;
-        }
     }
 }

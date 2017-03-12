@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\GearController.cs" />
     <Compile Include="Assets\Scripts\GravityOrbController.cs" />
     <Compile Include="Assets\Scripts\LevelTransition.cs" />
+    <Compile Include="Assets\Scripts\NonsenseGateController.cs" />
     <Compile Include="Assets\Scripts\PlatformController.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ResetCubeController.cs" />
