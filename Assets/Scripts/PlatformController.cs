@@ -11,11 +11,12 @@ public class PlatformController : MonoBehaviour {
 
 	public float platformSpeed;
 
+	//This code only worked for a specific situation and should probably be changed to work more generally
+
 	void pressedButton(){
 		buttonPressed = true;		
 	}
 
-	// Update is called once per frame
 	void FixedUpdate () {
 		if (buttonPressed) {
 			if (transform.position.z > backLimit) {
@@ -23,7 +24,7 @@ public class PlatformController : MonoBehaviour {
 			} else if (transform.position.z < frontLimit) {
 				direction = 1;
 			}
-			movement = Vector3.forward * direction * platformSpeed * Time.deltaTime; 
+			movement = Vector3.forward * direction * platformSpeed * Time.deltaTime; //Slides the platform back and forth through the air
 			transform.Translate (movement); 
 		}
 	}

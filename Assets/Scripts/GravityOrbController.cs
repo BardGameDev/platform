@@ -32,7 +32,7 @@ public class GravityOrbController : MonoBehaviour {
 		}
 	}
 
-	void Rotate(){
+	void Rotate(){ //This function makes the grav cubes spin in a cool looking way
 		transform.Rotate (new Vector3 (30, 10, 50) * Time.deltaTime * speed);
 		foreach (Transform child in transform) {
 				child.Rotate (new Vector3 (30, 10, 50) * Time.deltaTime * speed);
@@ -40,7 +40,7 @@ public class GravityOrbController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider Other) {
-		if (Other.gameObject.CompareTag("PlayerTrigger")) {
+		if (Other.gameObject.CompareTag("PlayerTrigger")) { //Kill the player if they touch it because otherwise you'd be stuck
 			playerRB.velocity = Vector3.zero;
 			playerRB.angularVelocity = Vector3.zero;
 			player.transform.position = startpos;

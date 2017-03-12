@@ -9,8 +9,12 @@ public class CPadController : MonoBehaviour {
 	public GameObject puzzleObject;
 	public GameObject Pad;
 
+	/* Every interactable puzzle object should have two
+	functions called counterClockwise and clockwise 
+	that do something to the object when the pad is rotated*/
+
 	void OnTriggerEnter(Collider Other){
-		if (gameObject.CompareTag ("CounterClockwise")) { // checks what way pad should be rotated
+		if (gameObject.CompareTag ("CounterClockwise")) { // checks which way pad should be rotated
 			rotating_speed = -10;
 			direction = "counterClockwise";
 		} else {

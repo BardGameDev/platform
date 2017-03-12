@@ -15,21 +15,21 @@ public class SpinablePlatformController : MonoBehaviour {
 	public bool buttonPressed;
 
 	void Start () {
-		endRotation = 90.0f;
+		endRotation = 90.0f; //The amount that you want to object to spin
 		speed = 10.0f;
-		transform.eulerAngles = destEuler;
-		puzzleObjectOnPad = false;
+		transform.eulerAngles = destEuler; //set the transform of the object equal to the curr/destEuler just in case it wasn't placed correctly
+		puzzleObjectOnPad = false; //set the ability to rotate puzzle object to false because why would we start with the puzzle finished?
 	}
 		
 	void FixedUpdate () {
 		if (buttonPressed) {
-			destEuler.y += endRotation;
-			buttonPressed = false;
+			destEuler.y += endRotation; //Set the destination rotation to be 90 degrees away
+			buttonPressed = false; //So the turn only happens once per button press
 		}
 
-		currEuler = Vector3.Lerp(currEuler, destEuler, Time.deltaTime * speed);
-		transform.eulerAngles = currEuler;
-		if (puzzleObjectOnPad) {
+		currEuler = Vector3.Lerp(currEuler, destEuler, Time.deltaTime * speed); //Lerp function with Time.delta creates a smooth transition every frame to the final destination
+		transform.eulerAngles = currEuler; //Set the rotation to for every frame so object actually spins in real time
+		if (puzzleObjectOnPad) { //If our puzzle object is on top of the pad then spin it as well
 			puzzleObject.transform.eulerAngles = currEuler;
 		}
 
@@ -37,7 +37,7 @@ public class SpinablePlatformController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider Other){
 		if (Other.gameObject.Equals(puzzleObject)) {
-			puzzleObjectOnPad = true;
+			puzzleObjectOnPad = true; // Check if our puzzle object is on the pad
 		}
 	}
 

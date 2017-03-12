@@ -18,25 +18,25 @@ public class FanController : MonoBehaviour {
     void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
         playerRB = player.GetComponent<Rigidbody>();
-		blade = transform.GetChild (0).transform;
+		blade = transform.GetChild (0).transform; //The blade should always be the only child of the Fan object
     }
 
 	void FixedUpdate(){
-		if (buttonPressed) {
+		if (buttonPressed) { //Spin the blade when the button is pressed
 			blade.Rotate(new Vector3 (0, 0, -90) * Time.deltaTime * 2);
 		}
 	}
 
 	void OnTriggerEnter(Collider Other) {
 		if (Other.gameObject.CompareTag ("PlayerTrigger") && buttonPressed) {
-			playerRB.AddForce (transform.up * fanForce);
+			playerRB.AddForce (transform.up * fanForce); //Blow player away like a big fan would
 	
 		}
 	}
 
 	void OnTriggerStay(Collider Other) {
 		if (Other.gameObject.CompareTag ("PlayerTrigger") && buttonPressed) {
-			playerRB.AddForce (transform.up * fanForce);
+			playerRB.AddForce (transform.up * fanForce); //Stop when the player is out of the fan
 
 		}
     }

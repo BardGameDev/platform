@@ -20,7 +20,7 @@ public class GearController : MonoBehaviour {
 
 	void FixedUpdate () {
 		if (buttonPressed) {
-			foreach (Transform child in transform) {
+			foreach (Transform child in transform) { //When the button is pressed it turns the gears on and they spin
 				child.Rotate (new Vector3 (0, 0, 50) * Time.deltaTime * direction);
 				direction *= -1;
 			}

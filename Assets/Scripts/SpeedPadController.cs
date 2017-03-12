@@ -10,7 +10,7 @@ public class SpeedPadController : MonoBehaviour {
 	public float speedBoost;
 
 	void Start(){
-		player = GameObject.FindGameObjectWithTag("Player");
+		player = GameObject.FindGameObjectWithTag("Player"); //Find player object
 		playerRB = player.GetComponent<Rigidbody>();
 	}
 
@@ -28,7 +28,7 @@ public class SpeedPadController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider Other) {
 		if(Other.gameObject.CompareTag("PlayerTrigger") && buttonPressed){
-			playerRB.AddForce(transform.forward * speedBoost, ForceMode.Impulse);
+			playerRB.AddForce(transform.forward * speedBoost, ForceMode.Impulse); //When the player enters the collider, add force to it regardless of its current velocity
 		}
 	}
 
