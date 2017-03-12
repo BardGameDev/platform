@@ -62,7 +62,8 @@ public class PlayerController : MonoBehaviour {
 
             // I felt like giving a higher precedence to torque but I actually dont know if this does anything
             // The following if statement ensures that the ball does not continue to accelerate indefinitely
-            if (playerRB.velocity.x < speed && playerRB.velocity.z < speed && playerRB.velocity.x > -speed && playerRB.velocity.z > -speed)
+            // The following insanity is necessary for the proper functionality of the control inversion gate.
+            if ((speed > 0 && playerRB.velocity.x < speed && playerRB.velocity.z < speed && playerRB.velocity.x > -speed && playerRB.velocity.z > -speed) || (speed < 0 && playerRB.velocity.x < -speed && playerRB.velocity.z < -speed && playerRB.velocity.x > speed && playerRB.velocity.z > speed))
             {
                 playerRB.AddForce(forceMovement * (speed * 2 / 3));
             }
@@ -95,6 +96,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider Other) {
+        
         if (Other.gameObject.CompareTag("Halfpipe"))
         {
             inAir = false;
@@ -139,11 +141,10 @@ public class PlayerController : MonoBehaviour {
 
 		//the breakable surfaces
 
-		if (Other.gameObject.CompareTag ("Breakable") && cubePrefab.activeSelf && playerRB.velocity.y < -10) 
+		if (Other.gameObject.CompareTag ("Breakable") && cubePrefab.activeSelf && playerRB.velocity.y < -12) 
 		{
 			Other.gameObject.SetActive(false);
 		}
-
 	}
 
 	void OnTriggerStay(Collider Other) {
@@ -163,13 +164,14 @@ public class PlayerController : MonoBehaviour {
 			inAir = false;
             inHalfPipe = false;
         }
-        /*Debug.LogWarning("Jumpable: " + Other.gameObject.CompareTag("Jumpable"));
-        Debug.LogWarning("Breakable: " + Other.gameObject.CompareTag("Breakable"));
-        Debug.LogWarning("Halfpipe: " + Other.gameObject.CompareTag("Halfpipe"));*/
     }
 
 	void OnTriggerExit(Collider Other) {
-		inAir = true; // Whenever you leave a trigger its probably because you're in the air.
+        inAir = true; // Whenever you leave a trigger its probably because you're in the air.
         inHalfPipe = false;
+        if (Other.gameObject.CompareTag("ControlInversion"))
+        {
+            speed = -speed;
+        }
     }
 }
