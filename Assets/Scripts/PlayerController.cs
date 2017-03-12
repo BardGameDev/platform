@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour {
                 {
                     cubePrefab.SetActive(true);
                     playerRenderer.enabled = false;
-                    cubeRB.AddForce(new Vector3(-cubeRB.velocity.x, -cubeRB.velocity.y, -cubeRB.velocity.z));
+                    cubeRB.AddForce(new Vector3(-cubeRB.velocity.x, 0, -cubeRB.velocity.z), ForceMode.Impulse);
                 }
                 else if (cubePrefab.activeSelf)
                 {
