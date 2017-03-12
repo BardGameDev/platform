@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResetCubeController : MonoBehaviour {
 	public GameObject player;
-
+    private PlayerController playerScript;
 	private Rigidbody playerRB;
 	private Vector3 startpos;
 
@@ -17,11 +17,12 @@ public class ResetCubeController : MonoBehaviour {
 	void Start() {
 		startpos = player.transform.position;
 		playerRB = player.GetComponent<Rigidbody> ();
-
+        playerScript = player.GetComponent<PlayerController>();
 		//reference to aray for double jumping
 
 		bouncePills = GameObject.FindGameObjectsWithTag("Bounce");
         breakables = GameObject.FindGameObjectsWithTag("Breakable");
+        //inversionGates = GameObject.FindGameObjectsWithTag("ControlInversion");
     }
 
 	void OnTriggerEnter(Collider Other) {}
@@ -41,6 +42,7 @@ public class ResetCubeController : MonoBehaviour {
 					bouncePills[x].SetActive (true);
 				}
 			}
+
             for (int x = 0; x < breakables.Length; x++)
             {
                 if (!breakables[x].activeSelf)
@@ -49,6 +51,12 @@ public class ResetCubeController : MonoBehaviour {
                 }
             }
 
+            playerScript.firstGatePassed = false;
+            if (playerScript.speed < 0)
+            {
+                playerScript.speed = -playerScript.speed;
+                playerScript.topSpeed = playerScript.speed * 1.2f;
+            }
             SwitchManager.Reset();
 		}
 	}

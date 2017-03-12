@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-	private Rigidbody playerRB;
-    private MeshRenderer playerRenderer;
+	public Rigidbody playerRB; //needs to be accessed by breakable script
+    public  MeshRenderer playerRenderer; //needs to be accessed by Halfpipe script
     private Rigidbody cubeRB;
 	private Vector3 gravDown;
 	public GameObject player;
@@ -14,15 +14,18 @@ public class PlayerController : MonoBehaviour {
 
 	private float offsetX;
 	private float offsetZ;
+    public float topSpeed;
 	public float speed;
+    
 	public float jumpSpeed;
 
+    public bool firstGatePassed = false; //for functionality of nonsense gates
 	public bool inAir;
-    public bool inHalfPipe; //determines whether the player is in a halfpipe
 	private bool PowerUpDoubleJump;
 
 	void Start(){
 
+        topSpeed = speed * 1.2f;
 		playerRB = GetComponent<Rigidbody> ();
         playerRenderer = GetComponent<MeshRenderer>();
         cubeRB = cubePrefab.GetComponent<Rigidbody>();
@@ -56,59 +59,45 @@ public class PlayerController : MonoBehaviour {
 		
 		Vector3 jump = new Vector3 (0.0f, jumpSpeed, 0.0f);
 
-        //if (!inHalfPipe)
-        //{
-            playerRB.AddTorque(torqueMovement * (speed * 2));
+        playerRB.AddTorque(torqueMovement * (speed * 2));
 
-            // I felt like giving a higher precedence to torque but I actually dont know if this does anything
-            // The following if statement ensures that the ball does not continue to accelerate indefinitely
-            // The following insanity is necessary for the proper functionality of the control inversion gate.
-            if ((speed > 0 && playerRB.velocity.x < speed && playerRB.velocity.z < speed && playerRB.velocity.x > -speed && playerRB.velocity.z > -speed) || (speed < 0 && playerRB.velocity.x < -speed && playerRB.velocity.z < -speed && playerRB.velocity.x > speed && playerRB.velocity.z > speed))
+        // I felt like giving a higher precedence to torque but I actually dont know if this does anything
+        // The following if statement ensures that the ball does not continue to accelerate indefinitely
+        // The following insanity is necessary for the proper functionality of the control inversion gate.
+        if (speed > 0 && speed < topSpeed || speed < 0 && speed > topSpeed)
+        {
+            playerRB.AddForce(forceMovement * (speed * 2 / 3));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!inAir)
             {
-                playerRB.AddForce(forceMovement * (speed * 2 / 3));
+                inAir = true;
+                playerRB.AddForce(jump); //This code is useful if you want to implement double jump so I'll just leave it
             }
+        }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+        //Kirby's Down B
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !HalfpipeManager.inHalfpipe)
+        {
+            if (!cubePrefab.activeSelf)
             {
-                if (!inAir)
-                {
-                    inAir = true;
-                    playerRB.AddForce(jump); //This code is useful if you want to implement double jump so I'll just leave it
-                }
+                cubePrefab.SetActive(true);
+                playerRenderer.enabled = false; //disable renderer dynamically in case the circle collider bleeds through the cube
+                cubeRB.AddForce(new Vector3(-cubeRB.velocity.x, 0, -cubeRB.velocity.z)); //in case the cube has become inactive in the middle of movement
             }
-
-            //Kirby's Down B
-            if (Input.GetKeyDown(KeyCode.LeftShift) && !inHalfPipe)
+            else if (cubePrefab.activeSelf)
             {
-                if (!cubePrefab.activeSelf)
-                {
-                    cubePrefab.SetActive(true);
-                    playerRenderer.enabled = false;
-                    cubeRB.AddForce(new Vector3(-cubeRB.velocity.x, 0, -cubeRB.velocity.z), ForceMode.Impulse);
-                }
-                else if (cubePrefab.activeSelf)
-                {
-                    cubePrefab.SetActive(false);
-                    playerRenderer.enabled = true;
-                }
-           // }
+                cubePrefab.SetActive(false);
+                playerRenderer.enabled = true;
+            }
         }
 	}
 
 	void OnTriggerEnter(Collider Other) {
-        
-        if (Other.gameObject.CompareTag("Halfpipe"))
-        {
-            inAir = false;
-            if (cubePrefab.activeSelf)
-            {
-                playerRenderer.enabled = true;
-                cubePrefab.SetActive(false);
-            }
-            inHalfPipe = true;
-        }
 
-        if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
+        if (Other.gameObject.CompareTag("Jumpable"))
         {
             // This was the best way I found for specifying where you can jump
             // In order to implement this you need to have a mesh collider that
@@ -116,58 +105,20 @@ public class PlayerController : MonoBehaviour {
             // The tag can also just be placed on all ground objects
 
             inAir = false;
-            inHalfPipe = false;
         }
-
-        //Both of these compareTags are in the player controller script because they regard the deactivation of gameObjects
-
-        //find all the switches, and the door opens (if there are any switches at all)
-        if (Other.gameObject.CompareTag("Switch"))
-		{
-			Other.gameObject.SetActive(false);
-			SwitchManager.switchCount++;
-			Debug.LogWarning(SwitchManager.switchCount);
-			//FROM THE TUTORIAL: score++;
-			//FROM THE TUTORIAL: scoreText.text = "Score: " + score;
-		}
-
-		//the bouncy pills
-
-		if (Other.gameObject.CompareTag("Bounce"))
-		{
-			Other.gameObject.SetActive(false);
-			playerRB.velocity = new Vector3(playerRB.velocity.x, playerRB.velocity.y + jumpSpeed/50, playerRB.velocity.z);
-		}
-
-		//the breakable surfaces
-
-		if (Other.gameObject.CompareTag ("Breakable") && cubePrefab.activeSelf && playerRB.velocity.y < -12) 
-		{
-			Other.gameObject.SetActive(false);
-		}
+		//FROM THE TUTORIAL: score++;
+		//FROM THE TUTORIAL: scoreText.text = "Score: " + score;
 	}
 
 	void OnTriggerStay(Collider Other) {
-        if (Other.gameObject.CompareTag("Halfpipe"))
-        {
-            inAir = false;
-            if (cubePrefab.activeSelf)
-            {
-                playerRenderer.enabled = true;
-                cubePrefab.SetActive(false);
-            }
-            inHalfPipe = true;
-        }
 
         if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
         {
 			inAir = false;
-            inHalfPipe = false;
         }
     }
 
 	void OnTriggerExit(Collider Other) {
         inAir = true; // Whenever you leave a trigger its probably because you're in the air.
-        inHalfPipe = false;
     }
 }

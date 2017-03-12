@@ -9,7 +9,7 @@ public class NonsenseGateController : MonoBehaviour {
     [SerializeField]
     private bool firstGate = true; //gets whether "this" is the first gate
 
-    private bool firstGatePassed = false; //gets whether the first gate has been triggered
+    //public bool firstGatePassed = false; //gets whether the first gate has been triggered
 
 	// Use this for initialization
 	void Start () {
@@ -21,14 +21,15 @@ public class NonsenseGateController : MonoBehaviour {
 		
 	}
 
-    void OnTriggerExit(Collider Other)
+    void OnTriggerEnter(Collider Other)
     {
         if (Other.gameObject.CompareTag("Player"))
         {
-            if (firstGate && player.speed > 0 && !firstGatePassed || !firstGate && player.speed < 0)
+            if (firstGate && player.speed > 0 && !player.firstGatePassed || !firstGate && player.speed < 0)
             {
                 player.speed = -player.speed; //invert the speed to invert the controls
-                firstGatePassed = true; //we've passed the first gate... only possibility
+                player.topSpeed = player.speed * 1.2f;
+                player.firstGatePassed = true; //we've passed the first gate... only possibility
             }
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwitchManager : MonoBehaviour {
 
-	/* This script is sepcifically for goals at the end of the level.  
+    /* This script is specifically for goals at the end of the level.  
 	 * If there are no switches to open the door, then the door is simply in the scene.  
 	 * If there are switches, then the door does not apear until each switch is inactive.
 	 * When the player dies, each switch resets to its active state if it's inactive.
@@ -14,7 +14,7 @@ public class SwitchManager : MonoBehaviour {
 
 	static int switchNumber;
 
-	static GameObject[] switchArray;
+    static GameObject[] switchArray;
 
     static GameObject portalToUnlock;
 
