@@ -38,7 +38,8 @@ public class ResetCubeController : MonoBehaviour {
 			//for loop is for resetting powerups.  While two for loops in a row is gross (this plus the switch manager), we're not going to be calling this, a lot.
 
 			for (int x = 0; x < bouncePills.Length; x++) {
-				if (!bouncePills[x].activeSelf) {
+				if (!bouncePills[x].activeSelf)
+                {
 					bouncePills[x].SetActive (true);
 				}
 			}
@@ -55,7 +56,6 @@ public class ResetCubeController : MonoBehaviour {
             if (playerScript.speed < 0)
             {
                 playerScript.speed = -playerScript.speed;
-                playerScript.topSpeed = playerScript.speed * 1.2f;
             }
             SwitchManager.Reset();
 		}

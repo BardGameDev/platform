@@ -28,7 +28,6 @@ public class NonsenseGateController : MonoBehaviour {
             if (firstGate && player.speed > 0 && !player.firstGatePassed || !firstGate && player.speed < 0)
             {
                 player.speed = -player.speed; //invert the speed to invert the controls
-                player.topSpeed = player.speed * 1.2f;
                 player.firstGatePassed = true; //we've passed the first gate... only possibility
             }
         }

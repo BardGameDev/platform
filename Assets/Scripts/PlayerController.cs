@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
+        Debug.LogWarning(playerRB.velocity.z);
         /*The following statements are for debugging:
 
         Debug.LogWarning("inAir " + inAir);
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour {
         // I felt like giving a higher precedence to torque but I actually dont know if this does anything
         // The following if statement ensures that the ball does not continue to accelerate indefinitely
         // The following insanity is necessary for the proper functionality of the control inversion gate.
-        if (speed > 0 && speed < topSpeed || speed < 0 && speed > topSpeed)
+        if (-topSpeed < playerRB.velocity.magnitude && playerRB.velocity.magnitude < topSpeed )
         {
             playerRB.AddForce(forceMovement * (speed * 2 / 3));
         }
