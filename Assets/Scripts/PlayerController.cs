@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 	private Rigidbody playerRB;
 	private Vector3 gravDown;
-	public GameObject player;
-	public Transform camera;
+	private Transform cam;
 
 	private float offsetX;
 	private float offsetZ;
@@ -17,6 +16,7 @@ public class PlayerController : MonoBehaviour {
 	private bool PowerUpDoubleJump;
 
 	void Start(){
+		cam = UnityEngine.Camera.main.transform;
 
 		playerRB = GetComponent<Rigidbody> ();
 
@@ -34,10 +34,10 @@ public class PlayerController : MonoBehaviour {
 		float moveHor = Input.GetAxis ("Horizontal");  
  		float moveVer = Input.GetAxis ("Vertical");
 
-		offsetX = (transform.position.x - camera.position.x)/4;
-		offsetZ = (transform.position.z - camera.position.z)/4;
+		offsetX = (transform.position.x - cam.position.x)/4;
+		offsetZ = (transform.position.z - cam.position.z)/4;
 
-		// Getting the offset from the X and Z allows us to always move the ball in relation to the camera
+		// Getting the offset from the X and Z allows us to always move the ball in relation to the cam
 		
 		Vector3 forceMovement = new Vector3 (moveHor*offsetZ + moveVer*offsetX, 0.0f, moveVer*offsetZ - moveHor*offsetX);
 		// Because torque is weird the axes are flipped for the torque movement vector		
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour {
 		// I felt like giving a higher precedence to torque but I actually dont know if this does anything
 		playerRB.AddForce (forceMovement * (speed * 2/3));
 
-		if (Input.GetKeyDown (KeyCode.Space)) { 
+		if (Input.GetKey (KeyCode.Space)) { 
 			if (!inAir) {
 				playerRB.AddForce (jump); //This code is useful if you want to implement double jump so I'll just leave it
 			}

@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpeedPadController : MonoBehaviour {
-	public float speedBoost;
-	public GameObject player;
+	private GameObject player;
 	private Rigidbody playerRB;
+
 	public bool buttonPressed;
+	public float speedBoost;
+
+	void Start(){
+		player = GameObject.FindGameObjectWithTag("Player");
+		playerRB = player.GetComponent<Rigidbody>();
+	}
 
 	void pressedButton(){
 		buttonPressed = true;
@@ -20,12 +26,8 @@ public class SpeedPadController : MonoBehaviour {
 		transform.Rotate(new Vector3 (0, -10,  0) * Time.deltaTime);
 	}
 
-	void Start(){
-		playerRB = player.GetComponent<Rigidbody>();
-	}
-
 	void OnTriggerEnter(Collider Other) {
-		if(Other.gameObject.CompareTag("Player") && buttonPressed){
+		if(Other.gameObject.CompareTag("PlayerTrigger") && buttonPressed){
 			playerRB.AddForce(transform.forward * speedBoost, ForceMode.Impulse);
 		}
 	}

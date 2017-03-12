@@ -6,12 +6,13 @@ public class GravityOrbController : MonoBehaviour {
 	public float pullRadius;
 	public float pullForce;
 	public float speed;
-	public GameObject player;
+	private GameObject player;
 
 	private Rigidbody playerRB;
 	private Vector3 startpos;
 
 	void Start() {
+		player = GameObject.FindGameObjectWithTag("Player");
 		startpos = player.transform.position;
 		playerRB = player.GetComponent<Rigidbody> ();
 	}
@@ -39,7 +40,7 @@ public class GravityOrbController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider Other) {
-		if (Other.gameObject.CompareTag("Player")) {
+		if (Other.gameObject.CompareTag("PlayerTrigger")) {
 			playerRB.velocity = Vector3.zero;
 			playerRB.angularVelocity = Vector3.zero;
 			player.transform.position = startpos;

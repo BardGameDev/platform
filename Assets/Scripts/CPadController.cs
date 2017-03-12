@@ -9,10 +9,6 @@ public class CPadController : MonoBehaviour {
 	public GameObject puzzleObject;
 	public GameObject Pad;
 
-	void Start(){
-		
-	}
-
 	void OnTriggerEnter(Collider Other){
 		if (gameObject.CompareTag ("CounterClockwise")) { // checks what way pad should be rotated
 			rotating_speed = -10;
@@ -25,7 +21,7 @@ public class CPadController : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider Other){
-		if(Other.gameObject.CompareTag("Player")){
+		if(Other.gameObject.CompareTag("PlayerTrigger")){
 			Pad.transform.Rotate(new Vector3 (0, rotating_speed,  0) * Time.deltaTime);
 			puzzleObject.SendMessage (direction);
 		}

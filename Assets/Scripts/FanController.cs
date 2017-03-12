@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FanController : MonoBehaviour {
-    public GameObject player;
-	public Transform blade;
+    private GameObject player;
+	private Transform blade;
 	private Rigidbody playerRB;
 	private bool buttonPressed;
 
@@ -16,25 +16,26 @@ public class FanController : MonoBehaviour {
 	}
 
     void Start () {
+		player = GameObject.FindGameObjectWithTag("Player");
         playerRB = player.GetComponent<Rigidbody>();
 		blade = transform.GetChild (0).transform;
     }
 
 	void FixedUpdate(){
 		if (buttonPressed) {
-			blade.Rotate(new Vector3 (0, 90, 0) * Time.deltaTime * 2);
+			blade.Rotate(new Vector3 (0, 0, -90) * Time.deltaTime * 2);
 		}
 	}
 
 	void OnTriggerEnter(Collider Other) {
-		if (Other.gameObject.CompareTag ("Player") && buttonPressed) {
+		if (Other.gameObject.CompareTag ("PlayerTrigger") && buttonPressed) {
 			playerRB.AddForce (transform.up * fanForce);
 	
 		}
 	}
 
 	void OnTriggerStay(Collider Other) {
-		if (Other.gameObject.CompareTag ("Player") && buttonPressed) {
+		if (Other.gameObject.CompareTag ("PlayerTrigger") && buttonPressed) {
 			playerRB.AddForce (transform.up * fanForce);
 
 		}

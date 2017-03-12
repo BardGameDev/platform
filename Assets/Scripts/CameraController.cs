@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
-	public Transform player;
+	private Transform player;
 	private Vector3 lookUp;
 	private Vector3 offset;
 
 	public float turnSpeed;
 
 	void Start () {
+		player = GameObject.FindGameObjectWithTag("Player").transform;
 		offset = transform.position - player.transform.position;
 		lookUp = Vector3.up * 2;
 	}
