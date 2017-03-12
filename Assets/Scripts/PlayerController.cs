@@ -56,8 +56,8 @@ public class PlayerController : MonoBehaviour {
 		
 		Vector3 jump = new Vector3 (0.0f, jumpSpeed, 0.0f);
 
-        if (!inHalfPipe)
-        {
+        //if (!inHalfPipe)
+        //{
             playerRB.AddTorque(torqueMovement * (speed * 2));
 
             // I felt like giving a higher precedence to torque but I actually dont know if this does anything
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
             }
 
             //Kirby's Down B
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !inHalfPipe)
             {
                 if (!cubePrefab.activeSelf)
                 {
@@ -90,22 +90,11 @@ public class PlayerController : MonoBehaviour {
                     cubePrefab.SetActive(false);
                     playerRenderer.enabled = true;
                 }
-            }
+           // }
         }
 	}
 
 	void OnTriggerEnter(Collider Other) {
-		if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
-        {
-			// This was the best way I found for specifying where you can jump
-			// In order to implement this you need to have a mesh collider that
-			// covers the surface of the area you want to let the player jump on
-			// The tag can also just be placed on all ground objects
-
-			inAir = false;
-            inHalfPipe = false;
-        }
-
         if (Other.gameObject.CompareTag("Halfpipe"))
         {
             inAir = false;
@@ -116,10 +105,17 @@ public class PlayerController : MonoBehaviour {
             }
             inHalfPipe = true;
         }
-        /*else
+
+        if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
         {
+            // This was the best way I found for specifying where you can jump
+            // In order to implement this you need to have a mesh collider that
+            // covers the surface of the area you want to let the player jump on
+            // The tag can also just be placed on all ground objects
+
+            inAir = false;
             inHalfPipe = false;
-        }*/
+        }
 
         //Both of these compareTags are in the player controller script because they regard the deactivation of gameObjects
 
@@ -151,11 +147,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider Other) {
-		if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
-        {
-			inAir = false;
-            inHalfPipe = false;
-        }
         if (Other.gameObject.CompareTag("Halfpipe"))
         {
             inAir = false;
@@ -166,11 +157,15 @@ public class PlayerController : MonoBehaviour {
             }
             inHalfPipe = true;
         }
-        /*else
-        {
-            inHalfPipe = false;
-        }*/
 
+        if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
+        {
+			inAir = false;
+            inHalfPipe = false;
+        }
+        /*Debug.LogWarning("Jumpable: " + Other.gameObject.CompareTag("Jumpable"));
+        Debug.LogWarning("Breakable: " + Other.gameObject.CompareTag("Breakable"));
+        Debug.LogWarning("Halfpipe: " + Other.gameObject.CompareTag("Halfpipe"));*/
     }
 
 	void OnTriggerExit(Collider Other) {
