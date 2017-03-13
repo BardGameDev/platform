@@ -19,7 +19,7 @@ public class Switch : MonoBehaviour {
 
     void OnTriggerEnter(Collider Other)
     {
-        if (Other.gameObject.CompareTag("Player"))
+        if (Other.gameObject.CompareTag("PlayerTrigger"))
         {
             gameObject.SetActive(false);
             SwitchManager.switchCount++;
