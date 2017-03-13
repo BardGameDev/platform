@@ -32,7 +32,7 @@ public class TeleportController : MonoBehaviour {
 
     void OnTriggerEnter(Collider Other)
     {
-        if (Other.gameObject.CompareTag("Player"))
+        if (Other.gameObject.CompareTag("PlayerTrigger"))
         {
             Other.transform.parent.GetComponentInParent<Transform>().position = new Vector3(teleportDest.position.x, teleportDest.position.y, teleportDest.position.z);
         }
