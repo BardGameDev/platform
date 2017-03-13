@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour {
             {
                 cubePrefab.SetActive(true);
                 playerRenderer.enabled = false; //disable renderer dynamically in case the circle collider bleeds through the cube
-                cubeRB.AddForce(new Vector3(-cubeRB.velocity.x, 0, -cubeRB.velocity.z)); //in case the cube has become inactive in the middle of movement
+                cubeRB.AddForce(new Vector3(-cubeRB.velocity.x, -cubeRB.velocity.y, -cubeRB.velocity.z)); //in case the cube has become inactive in the middle of movement
             }
             else if (cubePrefab.activeSelf)
             {
