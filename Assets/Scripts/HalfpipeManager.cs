@@ -21,7 +21,7 @@ public class HalfpipeManager : MonoBehaviour {
 
     void OnTriggerEnter(Collider Other)
     {
-        if (Other.gameObject.CompareTag("Player"))
+        if (Other.gameObject.CompareTag("PlayerTrigger"))
         {
             inHalfpipe = true;
             if (player.cubePrefab.activeSelf)
@@ -34,7 +34,7 @@ public class HalfpipeManager : MonoBehaviour {
 
     void OnTriggerStay(Collider Other)
     {
-        if (Other.gameObject.CompareTag("Player"))
+        if (Other.gameObject.CompareTag("PlayerTrigger"))
         {
             inHalfpipe = true;
             if (player.cubePrefab.activeSelf)
@@ -47,7 +47,7 @@ public class HalfpipeManager : MonoBehaviour {
 
     void OnTriggerExit(Collider Other)
     {
-        if (Other.gameObject.CompareTag("Player"))
+        if (Other.gameObject.CompareTag("PlayerTrigger"))
         {
             inHalfpipe = false;
         }
