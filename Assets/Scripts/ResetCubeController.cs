@@ -32,7 +32,7 @@ public class ResetCubeController : MonoBehaviour {
 	void OnTriggerStay(Collider Other){}
 
 	void OnTriggerExit(Collider Other){
-		if (Other.gameObject.CompareTag("Player")) {
+		if (Other.gameObject.CompareTag("PlayerTrigger")) {
 			playerRB.velocity = Vector3.zero;
 			playerRB.angularVelocity = Vector3.zero;
 			player.transform.position = startpos;
