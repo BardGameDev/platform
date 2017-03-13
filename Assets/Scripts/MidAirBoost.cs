@@ -19,7 +19,7 @@ public class MidAirBoost : MonoBehaviour {
 
     void OnTriggerEnter(Collider Other)
     {
-        if (Other.gameObject.CompareTag("Player"))
+        if (Other.gameObject.CompareTag("PlayerTrigger"))
         {
             gameObject.SetActive(false);
             player.playerRB.velocity = new Vector3(player.playerRB.velocity.x, player.playerRB.velocity.y + player.jumpSpeed/50, player.playerRB.velocity.z);
