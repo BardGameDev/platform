@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerStay(Collider Other) {
 
-        if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
+        if (Other.gameObject.CompareTag("Jumpable"))
         {
 			inAir = false;
         }
