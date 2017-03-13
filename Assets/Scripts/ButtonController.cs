@@ -9,7 +9,10 @@ public class ButtonController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider Other) {
 		if(Other.gameObject.CompareTag("PlayerTrigger")){
-			puzzleObject.SendMessage("pressedButton"); 
+			foreach (Transform child in puzzleObject.transform) {
+				child.gameObject.SendMessage("pressedButton");
+			}
+			//puzzleObject.SendMessage("pressedButton");
 		}
 	}
 

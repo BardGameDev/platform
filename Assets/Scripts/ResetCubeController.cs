@@ -69,7 +69,7 @@ public class ResetCubeController : MonoBehaviour {
 			if (playerScript.speed < 0) {
 				playerScript.speed = -playerScript.speed;
 			}
-			if (portal != null) {
+			if (portal.Length > 0) {
 				SwitchManager.Reset ();
 
 			}
