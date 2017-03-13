@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-        Debug.LogWarning(playerRB.velocity.z);
         /*The following statements are for debugging:
 
         Debug.LogWarning("inAir " + inAir);

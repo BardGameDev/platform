@@ -14,6 +14,8 @@ public class ResetCubeController : MonoBehaviour {
 
     private GameObject[] breakables;
 
+    private GameObject[] teleportPairs;
+
 	void Start() {
 		startpos = player.transform.position;
 		playerRB = player.GetComponent<Rigidbody> ();
@@ -22,7 +24,7 @@ public class ResetCubeController : MonoBehaviour {
 
 		bouncePills = GameObject.FindGameObjectsWithTag("Bounce");
         breakables = GameObject.FindGameObjectsWithTag("Breakable");
-        //inversionGates = GameObject.FindGameObjectsWithTag("ControlInversion");
+        teleportPairs = GameObject.FindGameObjectsWithTag("TeleportEnter");
     }
 
 	void OnTriggerEnter(Collider Other) {}
@@ -52,11 +54,24 @@ public class ResetCubeController : MonoBehaviour {
                 }
             }
 
+            for (int x = 0; x < teleportPairs.Length; x++)
+            {
+                //reset teleport buttons to unpushed and place teleports at original positions... we might want to do this for all buttons, eventually
+                TeleportController temp = teleportPairs[x].GetComponent<TeleportController>();
+                if (temp.hasSwapped)
+                {
+                    temp.reverseRoute();
+                    temp.buttonPressed = false;
+                    temp.hasSwapped = false;
+                }
+            }
+
             playerScript.firstGatePassed = false;
             if (playerScript.speed < 0)
             {
                 playerScript.speed = -playerScript.speed;
             }
+
             SwitchManager.Reset();
 		}
 	}
