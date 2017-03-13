@@ -23,7 +23,7 @@ public class NonsenseGateController : MonoBehaviour {
 
     void OnTriggerEnter(Collider Other)
     {
-        if (Other.gameObject.CompareTag("Player"))
+        if (Other.gameObject.CompareTag("PlayerTrigger"))
         {
             if (firstGate && player.speed > 0 && !player.firstGatePassed || !firstGate && player.speed < 0)
             {
