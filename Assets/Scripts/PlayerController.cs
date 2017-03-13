@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
 	private bool PowerUpDoubleJump;
 
 	void Start(){
-		cam = UnityEngine.Camera.main.transform;
+		cam = GameObject.FindGameObjectWithTag ("MainCamera").transform;
 
 		playerRB = GetComponent<Rigidbody> ();
 
