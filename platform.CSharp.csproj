@@ -104,7 +104,7 @@
     <Compile Include="Assets\Scripts\SpeedPadController.cs" />
     <Compile Include="Assets\Scripts\Switch.cs" />
     <Compile Include="Assets\Scripts\SwitchManager.cs" />
-    <Compile Include="Assets\TeleportController.cs" />
+    <Compile Include="Assets\Scripts\TeleportController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
