@@ -8,7 +8,7 @@ public class BreakableManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag("player").GetComponent<PlayerController>();
+		player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 	}
 	
 	// Update is called once per frame
@@ -18,7 +18,7 @@ public class BreakableManager : MonoBehaviour {
 
     void OnTriggerEnter(Collider Other)
     {
-        if (Other.gameObject == player.gameObject && player.playerRB.velocity.y < -12)
+		if (player.cubePrefab.activeSelf)
         {
             gameObject.SetActive(false);
         }

@@ -10,7 +10,7 @@ public class HalfpipeManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag("player").GetComponent<PlayerController>();
+		player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         inHalfpipe = false;
 	}
 	

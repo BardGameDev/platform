@@ -6,7 +6,7 @@ public class FanController : MonoBehaviour {
     private GameObject player;
 	private Transform blade;
 	private Rigidbody playerRB;
-	private bool buttonPressed;
+	public bool buttonPressed;
 
 
     private float fanForce = 16;

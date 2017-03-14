@@ -81,10 +81,9 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.LeftShift) && !HalfpipeManager.inHalfpipe) {
             if (!cubePrefab.activeSelf)
             {
-				gameObject.SetActive (false);
                 cubePrefab.SetActive(true);
                 playerRenderer.enabled = false; //disable renderer dynamically in case the circle collider bleeds through the cube
-				cubeRB.velocity = Vector3.zero;
+				//cubeRB.velocity = Vector3.zero;
 				cubeRB.angularVelocity = Vector3.zero;
 				//cubeRB.AddForce(new Vector3(0, -20f, 0)); //in case the cube has become inactive in the middle of movement
             }
