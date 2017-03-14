@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonController : MonoBehaviour {
+public class ButtonListController : MonoBehaviour {
 	public GameObject puzzleObject;
 
 	//Every interactable object should have a pressedButton() function to make it do something when you press its button
 
 	void OnTriggerEnter(Collider Other) {
 		if(Other.gameObject.CompareTag("PlayerTrigger")){
-			puzzleObject.SendMessage("pressedButton");
+			foreach (Transform child in puzzleObject.transform) {
+				child.gameObject.SendMessage("pressedButton");
+			}
+			//puzzleObject.SendMessage("pressedButton");
 		}
 	}
 
