@@ -11,7 +11,7 @@ public class PickUp : MonoBehaviour {
 
 	private GameObject cam;
 	private GameObject player;
-	private MeshCollider col;
+	private Collider col;
 	private Vector3 relativeDistance = Vector3.zero;
 	private bool isAttached;
 
