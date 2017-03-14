@@ -13,6 +13,7 @@ public class PickUp : MonoBehaviour {
 	private GameObject player;
 	private Collider col;
 	private Vector3 relativeDistance = Vector3.zero;
+	private Vector3 startPos;
 	private bool isAttached;
 
 	void Start () {
@@ -20,6 +21,7 @@ public class PickUp : MonoBehaviour {
 		isAttached = false;
 		cam = GameObject.FindGameObjectWithTag ("MainCamera");
 		player = GameObject.FindGameObjectWithTag ("Player");
+		startPos = transform.position;
 	}
 
 	void Update(){ //put any animations for pickup objects here
@@ -30,6 +32,8 @@ public class PickUp : MonoBehaviour {
 	void  LateUpdate(){
 		if (isAttached) {
 			Orbit ();
+		} else {
+			transform.Rotate (new Vector3 (1f, 1f, 1f));
 		}
 	}
 		
@@ -59,5 +63,11 @@ public class PickUp : MonoBehaviour {
 		transform.RotateAround(player.transform.position , Vector3.up, orbitDegreesPerSec * Time.deltaTime);
 		// Reset relative position after rotate
 		relativeDistance = transform.position - player.transform.position;
+	}
+
+	void Reset() {
+		isAttached = false;
+		transform.position = startPos;
+		transform.localScale *= scale_down;
 	}
 }

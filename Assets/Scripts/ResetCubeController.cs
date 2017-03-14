@@ -18,6 +18,8 @@ public class ResetCubeController : MonoBehaviour {
 
 	private GameObject[] portal;
 
+	private GameObject[] pickUps;
+
 	void Start() {
 		player = GameObject.FindGameObjectWithTag("Player");
 		startpos = player.transform.position;
@@ -29,6 +31,7 @@ public class ResetCubeController : MonoBehaviour {
         breakables = GameObject.FindGameObjectsWithTag("Breakable");
         teleportPairs = GameObject.FindGameObjectsWithTag("TeleportEnter");
 		portal = GameObject.FindGameObjectsWithTag("Portal");
+		pickUps = GameObject.FindGameObjectsWithTag("PickUp");
     }
 
 	void OnTriggerEnter(Collider Other) {}
@@ -63,6 +66,10 @@ public class ResetCubeController : MonoBehaviour {
 					temp.buttonPressed = false;
 					temp.hasSwapped = false;
 				}
+			}
+
+			foreach(GameObject pickUp in pickUps){
+				pickUp.SendMessage ("Reset");
 			}
 
 			playerScript.firstGatePassed = false;
