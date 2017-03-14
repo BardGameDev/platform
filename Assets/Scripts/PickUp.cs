@@ -11,12 +11,12 @@ public class PickUp : MonoBehaviour {
 
 	private GameObject cam;
 	private GameObject player;
-	private MeshCollider collide;
+	private MeshCollider col;
 	private Vector3 relativeDistance = Vector3.zero;
 	private bool isAttached;
 
 	void Start () {
-		collide = gameObject.GetComponent<MeshCollider> ();
+		col = gameObject.GetComponent<Collider> ();
 		isAttached = false;
 		cam = GameObject.FindGameObjectWithTag ("MainCamera");
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -36,7 +36,7 @@ public class PickUp : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag ("PlayerTrigger")) {
 			isAttached = true;
-			collide.enabled = false;
+			col.enabled = false;
 			transform.localScale /= scale_down; // makes object smaller on pickup
 			transform.position = calculateAttatchedPosition (); // place object in intial position for orbit (relative to camera)
 			relativeDistance = transform.position - player.transform.position;
