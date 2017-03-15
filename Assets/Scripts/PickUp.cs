@@ -40,7 +40,7 @@ public class PickUp : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag ("PlayerTrigger")) {
 			isAttached = true;
-			col.enabled = false;
+			col.isTrigger = true;
 			transform.localScale /= scale_down; // makes object smaller on pickup
 			transform.position = calculateAttatchedPosition (); // place object in intial position for orbit (relative to camera)
 			relativeDistance = transform.position - player.transform.position;
@@ -67,6 +67,7 @@ public class PickUp : MonoBehaviour {
 
 	void Reset() {
 		isAttached = false;
+		col.isTrigger = false;
 		transform.position = startPos;
 		transform.localScale *= scale_down;
 	}

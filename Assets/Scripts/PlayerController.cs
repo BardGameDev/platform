@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 	private bool PowerUpDoubleJump;
 
 	void Start(){
-		cam = GameObject.FindGameObjectWithTag ("MainCamera").transform;
+		cam = GameObject.FindGameObjectWithTag ("MainCamera").transform; 
 
         topSpeed = speed * 1.2f;
 		playerRB = GetComponent<Rigidbody> ();
