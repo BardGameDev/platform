@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: f65a663b5200242a8a13a483a6465e3f
-timeCreated: 1489598800
+guid: 277a9f9defe49423e84ce3b2b59060ba
+timeCreated: 1489619507
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -16,6 +16,7 @@ ModelImporter:
     2300000: Cube
     3300000: Cube
     4300000: Cube
+    6400000: Cube
   materials:
     importMaterials: 1
     materialName: 0
@@ -42,7 +43,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

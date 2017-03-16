@@ -6,7 +6,7 @@ public class ButtonController1 : MonoBehaviour {
 
 	public GameObject pad;
 	private bool beenClicked = false;
-	public Renderer rend;
+	private Renderer rend;
 
 	void Start() {
 		rend = GetComponent<Renderer> ();

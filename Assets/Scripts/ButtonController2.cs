@@ -11,7 +11,7 @@ public class ButtonController2 : MonoBehaviour {
 	private Color green;
 	private Color red;
 
-	public Renderer rend;
+	private Renderer rend;
 
 	void Start() {
 		rend = GetComponent<Renderer>();

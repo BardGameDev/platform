@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{D282B053-7539-543C-A996-9F090244A7AB}</ProjectGuid>
+    <ProjectGuid>{2F1DC369-C1F7-CEC7-015E-02BBEE1850BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -51,13 +51,17 @@
      <Compile Include="Assets\Scripts\ButtonController.cs" />
      <Compile Include="Assets\Scripts\ButtonController1.cs" />
      <Compile Include="Assets\Scripts\ButtonController2.cs" />
+     <Compile Include="Assets\Scripts\ButtonListController.cs" />
      <Compile Include="Assets\Scripts\CPadController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\CounterweightController.cs" />
      <Compile Include="Assets\Scripts\FanController.cs" />
      <Compile Include="Assets\Scripts\GearController.cs" />
+     <Compile Include="Assets\Scripts\GearControllerLevel1.cs" />
      <Compile Include="Assets\Scripts\GravityOrbController.cs" />
      <Compile Include="Assets\Scripts\HalfpipeManager.cs" />
      <Compile Include="Assets\Scripts\HoverObject.cs" />
+     <Compile Include="Assets\Scripts\Level1Controller.cs" />
      <Compile Include="Assets\Scripts\LevelTransition.cs" />
      <Compile Include="Assets\Scripts\MidAirBoost.cs" />
      <Compile Include="Assets\Scripts\NonsenseGateController.cs" />

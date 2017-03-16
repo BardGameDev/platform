@@ -5,7 +5,6 @@ using UnityEngine;
 public class CPadController : MonoBehaviour {
 	private int rotating_speed;
 	private string direction;
-	private GameObject grandParent;
 
 	public GameObject puzzleObject;
 	public GameObject Pad;
@@ -23,10 +22,6 @@ public class CPadController : MonoBehaviour {
 			direction = "clockwise";
 		}
 
-	}
-
-	void pressedButton(){
-		grandParent.SetActive (false);
 	}
 
 	void OnTriggerStay(Collider Other){
