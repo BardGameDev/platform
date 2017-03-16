@@ -46,8 +46,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BinaryManager.cs" />
      <Compile Include="Assets\Scripts\BreakableManager.cs" />
      <Compile Include="Assets\Scripts\ButtonController.cs" />
+     <Compile Include="Assets\Scripts\ButtonController1.cs" />
+     <Compile Include="Assets\Scripts\ButtonController2.cs" />
      <Compile Include="Assets\Scripts\ButtonListController.cs" />
      <Compile Include="Assets\Scripts\CPadController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
