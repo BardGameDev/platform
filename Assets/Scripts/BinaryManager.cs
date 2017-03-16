@@ -6,11 +6,14 @@ public class BinaryManager : MonoBehaviour {
 
 	bool[] puzzle = new bool[6];
 	bool [] ans = new bool[6];
+	public GameObject PickUp;
 
 	private int count;
 	private bool isDone;
 
 	void Start(){
+		PickUp.SetActive (false);
+
 		for (int i = 0; i < puzzle.Length; i++) {
 			puzzle [i] = false;
 			ans [i] = false;
@@ -58,6 +61,7 @@ public class BinaryManager : MonoBehaviour {
 		if (count == 6) {
 			//bring down platform
 			//activate pickup object
+			PickUp.SetActive(true);
 			isDone = true;
 			Vector3 final_pos = new Vector3(gameObject.transform.position.x, -11.5f,gameObject.transform.position.z);
 			gameObject.transform.position = Vector3.Lerp (gameObject.transform.position, final_pos, Time.deltaTime);

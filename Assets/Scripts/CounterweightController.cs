@@ -2,23 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GearControllerLevel1 : MonoBehaviour {
+public class CounterweightController : MonoBehaviour {
 	private float direction = 1;
 	public bool buttonPressed;
 	private bool pickUpGearFound;
-	private GameObject[] pickUps;
-	private Transform[] gearChildren = new Transform[3];
+	private GameObject pickUps;
 
 	void Start(){
-		pickUps = GameObject.FindGameObjectsWithTag("GearPickUp");
+		pickUps = GameObject.FindGameObjectWithTag("CounterweightPickUp");
 
 		pickUpGearFound = false;
-
-		int i = 0;
-		foreach (Transform child in transform) {
-			gearChildren[i] = child;
-			i++;
-		}
 	}
 
 	void pressedButton(){

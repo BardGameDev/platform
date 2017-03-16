@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\ButtonListController.cs" />
      <Compile Include="Assets\Scripts\CPadController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\CounterweightController.cs" />
      <Compile Include="Assets\Scripts\FanController.cs" />
      <Compile Include="Assets\Scripts\GearController.cs" />
      <Compile Include="Assets\Scripts\GearControllerLevel1.cs" />
