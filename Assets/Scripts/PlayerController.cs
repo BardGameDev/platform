@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
 	private bool PowerUpDoubleJump;
 
 	void Start(){
-		cam = GameObject.FindGameObjectWithTag ("MainCamera").transform;
+		cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
 
         topSpeed = speed * 1.2f;
 		playerRB = GetComponent<Rigidbody> ();
@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
+        Debug.LogWarning(playerRB.velocity.z);
         /*The following statements are for debugging:
 
         Debug.LogWarning("inAir " + inAir);
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour {
 			{
 				inAir = true;
 				playerRB.AddForce(jump); //This code is useful if you want to implement double jump so I'll just leave it
+				return; //This ensures that no especially large jumps will occur
 			}
 		}
 
@@ -97,7 +99,7 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider Other) {
 
-        if (Other.gameObject.CompareTag("Jumpable"))
+        if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
         {
             // This was the best way I found for specifying where you can jump
             // In order to implement this you need to have a mesh collider that
@@ -112,7 +114,7 @@ public class PlayerController : MonoBehaviour {
 
 	void OnTriggerStay(Collider Other) {
 
-        if (Other.gameObject.CompareTag("Jumpable"))
+        if (Other.gameObject.CompareTag("Jumpable") || Other.gameObject.CompareTag("Breakable"))
         {
 			inAir = false;
         }

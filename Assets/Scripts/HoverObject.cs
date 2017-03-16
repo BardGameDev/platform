@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HoverObject : MonoBehaviour {
-	private float hoverHeight = 1.5f;
+
+	[SerializeField]
+	private float hoverHeight = 1f;
+
+	[SerializeField]
 	private float hoverForce = 100f;
+
 	private float proportionalHeight;
 
 	private Ray groundSensorRay;
@@ -26,6 +31,10 @@ public class HoverObject : MonoBehaviour {
 	void FixedUpdate () {
 
 		if (buttonPressed) {
+            if (ObjectRB.isKinematic) //if the isKinematic box is checked...
+            {
+                ObjectRB.isKinematic = false; //turn it back to normal... if the block is a rigidbody above ground, it can be moved no matter what
+            }
 			groundSensorRay = new Ray (transform.position, -transform.up);
 			RaycastHit hit;
 
