@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\GearController.cs" />
     <Compile Include="Assets\Scripts\GravityOrbController.cs" />
     <Compile Include="Assets\Scripts\HalfpipeManager.cs" />
+    <Compile Include="Assets\Scripts\HoverObject.cs" />
     <Compile Include="Assets\Scripts\LevelTransition.cs" />
     <Compile Include="Assets\Scripts\MidAirBoost.cs" />
     <Compile Include="Assets\Scripts\NonsenseGateController.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ResetCubeController.cs" />
     <Compile Include="Assets\Scripts\SpeedPadController.cs" />
+    <Compile Include="Assets\Scripts\SpinablePlatformController.cs" />
     <Compile Include="Assets\Scripts\Switch.cs" />
     <Compile Include="Assets\Scripts\SwitchManager.cs" />
     <Compile Include="Assets\Scripts\TeleportController.cs" />
