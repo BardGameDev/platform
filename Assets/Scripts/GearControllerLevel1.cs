@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class GearControllerLevel1 : MonoBehaviour {
 	private float direction = 1;
-	public bool buttonPressed;
 	private bool pickUpGearFound;
-	private GameObject pickUp;
-	private PickUp pickUpScript;
+	private PickUpController pickUpScript;
 	private Transform[] gearChildren = new Transform[3];
 
-	private bool done;
+	public bool buttonPressed;
+	public GameObject pickUp;
+	public string id = "-1";
 
 	void Start(){
 		pickUp = GameObject.FindGameObjectWithTag("GearPickUp");
-		pickUpScript = pickUp.GetComponent<PickUp> ();
+		pickUpScript = pickUp.GetComponent<PickUpController> ();
 		pickUpGearFound = false;
-
-		done = false;
 
 		int i = 0;
 		foreach (Transform child in transform) {
@@ -25,9 +23,7 @@ public class GearControllerLevel1 : MonoBehaviour {
 			i++;
 		}
 	}
-	public bool isDone(){
-		return done;
-	}
+
 	void pressedButton(){
 		buttonPressed = true;
 	}
@@ -57,15 +53,6 @@ public class GearControllerLevel1 : MonoBehaviour {
 			gearChildren[0].Rotate(new Vector3 (0, 0, -50) * Time.deltaTime * direction);
 			gearChildren[1].Rotate(new Vector3 (0, 0, 50) * Time.deltaTime * direction);
 			gearChildren[2].Rotate(new Vector3 (0, 0, -50) * Time.deltaTime * direction);
-		}
-	}
-
-	void OnTriggerEnter(Collider Other){
-		if (Other.gameObject.CompareTag("PlayerTrigger")&& pickUpScript.isAttached){
-			Debug.Log ("wowzah!");
-			pickUp.SendMessage ("off");
-			done = true;
-			gearChildren[1].gameObject.SetActive (true);
 		}
 	}
 }

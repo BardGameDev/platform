@@ -3,17 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonController : MonoBehaviour {
-	public GameObject puzzleObject;
 
-	//Every interactable object should have a pressedButton() function to make it do something when you press its button
+	public GameObject puzzleObject = null;
+	public bool independent = true;
+	public string id = "-1";
+
+	private LevelController controller;
+	private Renderer rend;
+	private bool beenClicked = false;
+
+	void Start(){
+		rend = GetComponent<Renderer>();
+		controller =  GameObject.FindGameObjectWithTag ("Controller").GetComponent<LevelController>();
+	}
 
 	void OnTriggerEnter(Collider Other) {
 		if(Other.gameObject.CompareTag("PlayerTrigger")){
-			puzzleObject.SendMessage("pressedButton");
+			if (independent) {
+				if (beenClicked) {
+					rend.material.color = Color.green;
+					beenClicked = false;
+				} else {
+					rend.material.color = Color.red;
+					beenClicked = true;
+				}
+			}
+			controller.buttonPressed (id, beenClicked, gameObject, puzzleObject);
 		}
 	}
-
-	void OnTriggerStay(Collider Other) {}
-	void OnTriggerExit(Collider Other) {}
 		
 }

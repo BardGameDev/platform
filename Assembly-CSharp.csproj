@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2F1DC369-C1F7-CEC7-015E-02BBEE1850BF}</ProjectGuid>
+    <ProjectGuid>{101002BE-0C03-6317-E537-9699A2F3DE09}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -46,34 +46,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\BinaryManager.cs" />
-     <Compile Include="Assets\Scripts\BreakableManager.cs" />
      <Compile Include="Assets\Scripts\ButtonController.cs" />
-     <Compile Include="Assets\Scripts\ButtonController1.cs" />
-     <Compile Include="Assets\Scripts\ButtonController2.cs" />
-     <Compile Include="Assets\Scripts\ButtonListController.cs" />
      <Compile Include="Assets\Scripts\CPadController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
-     <Compile Include="Assets\Scripts\CounterweightController.cs" />
+     <Compile Include="Assets\Scripts\DropTriggerController.cs" />
      <Compile Include="Assets\Scripts\FanController.cs" />
      <Compile Include="Assets\Scripts\GearController.cs" />
      <Compile Include="Assets\Scripts\GearControllerLevel1.cs" />
      <Compile Include="Assets\Scripts\GravityOrbController.cs" />
-     <Compile Include="Assets\Scripts\HalfpipeManager.cs" />
      <Compile Include="Assets\Scripts\HoverObject.cs" />
-     <Compile Include="Assets\Scripts\Level1Controller.cs" />
-     <Compile Include="Assets\Scripts\LevelTransition.cs" />
-     <Compile Include="Assets\Scripts\MidAirBoost.cs" />
-     <Compile Include="Assets\Scripts\NonsenseGateController.cs" />
-     <Compile Include="Assets\Scripts\PickUp.cs" />
-     <Compile Include="Assets\Scripts\PlatformController.cs" />
+     <Compile Include="Assets\Scripts\LevelController.cs" />
+     <Compile Include="Assets\Scripts\PickUpController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\ResetCubeController.cs" />
      <Compile Include="Assets\Scripts\SpeedPadController.cs" />
-     <Compile Include="Assets\Scripts\SpinablePlatformController.cs" />
-     <Compile Include="Assets\Scripts\Switch.cs" />
-     <Compile Include="Assets\Scripts\SwitchManager.cs" />
-     <Compile Include="Assets\Scripts\TeleportController.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
