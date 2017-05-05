@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{9D06E34A-F61D-436B-86C7-6FF44897E91B}</ProjectGuid>
+    <ProjectGuid>{DB73A32D-03EB-6480-F2A3-047A34BB8B51}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -46,7 +46,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\SceneChangeController.cs" />
      <Compile Include="Assets\Scripts\ButtonController.cs" />
      <Compile Include="Assets\Scripts\CPadController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
@@ -57,8 +56,11 @@
      <Compile Include="Assets\Scripts\GravityOrbController.cs" />
      <Compile Include="Assets\Scripts\HoverObject.cs" />
      <Compile Include="Assets\Scripts\LevelController.cs" />
+     <Compile Include="Assets\Scripts\MovingPatformController.cs" />
      <Compile Include="Assets\Scripts\PickUpController.cs" />
+     <Compile Include="Assets\Scripts\PlatformStartController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\SceneChangeController.cs" />
      <Compile Include="Assets\Scripts\SpeedPadController.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>

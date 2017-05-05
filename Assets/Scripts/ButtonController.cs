@@ -22,19 +22,22 @@ public class ButtonController : MonoBehaviour {
 		if(Other.gameObject.CompareTag("PlayerTrigger")){
 			ToggleClicked ();
 			if (type == 1) {
-				controller.buttonPressed (id, type, beenClicked, gameObject, puzzleObject);	
+				controller.buttonPressed (id, beenClicked, gameObject, puzzleObject);	
 			} else if (type == 2) {
 				controller.buttonCount (id, timer, beenClicked, gameObject, puzzleObject);
+			} else if (type == 3) {
+				controller.buttonActivate (id, puzzleObject);
 			}
 		}
 	}
 
-	void OnTriggerStay(){
-		//type3 send info to level controller
-	}
-
-	void OnTriggerExit(){
-	//type 3 toggle
+	void OnTriggerExit(Collider Other){
+		if (Other.gameObject.CompareTag ("PlayerTrigger")) {
+			ToggleClicked ();
+			if (type == 3) {
+				controller.buttonDeactivate (id, puzzleObject);
+			}
+		}
 	}
 
 	public void ToggleClicked(){

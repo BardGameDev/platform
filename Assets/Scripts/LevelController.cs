@@ -36,8 +36,20 @@ public class LevelController : MonoBehaviour {
 	}
 
 	//Called by ButtonController
-	public void buttonPressed(string id, int type, bool beenClicked, GameObject button, GameObject puzzle){
+	public void buttonPressed(string id, bool beenClicked, GameObject button, GameObject puzzle){
 
+	}
+
+	public void buttonActivate(string id, GameObject puzzle){
+		if(id.Equals("platButton")){
+			puzzle.GetComponent<MovingPatformController> ().toggleActive ();
+		}
+	}
+
+	public void buttonDeactivate(string id, GameObject puzzle){
+		if(id.Equals("platButton")){
+			puzzle.GetComponent<MovingPatformController> ().toggleActive ();
+		}
 	}
 
 	public void buttonCount(string id, float timer, bool beenClicked, GameObject button, GameObject puzzle){
