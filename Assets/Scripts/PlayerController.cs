@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-	public Rigidbody playerRB; //needs to be accessed by breakable script
-    public MeshRenderer playerRenderer; //needs to be accessed by Halfpipe script
+
+	public Rigidbody playerRB; 
     private Rigidbody cubeRB;
 	private Vector3 gravDown;
 	private Transform cam;
@@ -17,18 +17,15 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
     
 	public float jumpSpeed;
-
-    public bool firstGatePassed = false; //for functionality of nonsense gates
 	public bool inAir;
 	private bool PowerUpDoubleJump;
 
 	void Start(){
-		cam = GameObject.FindGameObjectWithTag ("MainCamera").transform;
+		cam = GameObject.FindGameObjectWithTag ("MainCamera").transform; 
 
         topSpeed = speed * 1.2f;
 		playerRB = GetComponent<Rigidbody> ();
-        playerRenderer = GetComponent<MeshRenderer>();
-        cubeRB = cubePrefab.GetComponent<Rigidbody>();
+		cubeRB = cubePrefab.GetComponent<Rigidbody>();
 
 		gravDown = new Vector3(0, -25, 0);
 
@@ -36,11 +33,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-        /*The following statements are for debugging:
-
-        Debug.LogWarning("inAir " + inAir);
-        Debug.LogWarning("in HalfPipe: " + inHalfPipe);
-
         /* Adding both torque and force at the same time
 		 gives you good control at lower speed but still
 		 leaves the ability to accelerate */
@@ -76,23 +68,6 @@ public class PlayerController : MonoBehaviour {
 				playerRB.AddForce(jump); //This code is useful if you want to implement double jump so I'll just leave it
 			}
 		}
-
-        //Kirby's Down B
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !HalfpipeManager.inHalfpipe) {
-            if (!cubePrefab.activeSelf)
-            {
-                cubePrefab.SetActive(true);
-                playerRenderer.enabled = false; //disable renderer dynamically in case the circle collider bleeds through the cube
-				cubeRB.velocity = Vector3.zero;
-				cubeRB.angularVelocity = Vector3.zero;
-				cubeRB.AddForce(new Vector3(0, -20f, 0)); //in case the cube has become inactive in the middle of movement
-            }
-            else if (cubePrefab.activeSelf)
-            {
-                cubePrefab.SetActive(false);
-                playerRenderer.enabled = true;
-            }
-        }
 	}
 
 	void OnTriggerEnter(Collider Other) {
@@ -106,8 +81,6 @@ public class PlayerController : MonoBehaviour {
 
             inAir = false;
         }
-		//FROM THE TUTORIAL: score++;
-		//FROM THE TUTORIAL: scoreText.text = "Score: " + score;
 	}
 
 	void OnTriggerStay(Collider Other) {

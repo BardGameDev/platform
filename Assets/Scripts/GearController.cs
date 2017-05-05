@@ -11,11 +11,17 @@ public class GearController : MonoBehaviour {
 	}
 
 	void counterClockwise(){
-		transform.Rotate(new Vector3 (0, 10,  0) * Time.deltaTime);
+		foreach (Transform child in transform) {
+			child.Rotate (new Vector3 (0, 0, -50) * Time.deltaTime * direction);
+			direction *= -1;
+		}
 	}
 
 	void clockwise(){
-		transform.Rotate(new Vector3 (0, -10,  0) * Time.deltaTime);
+		foreach (Transform child in transform) {
+			child.Rotate (new Vector3 (0, 0, 50) * Time.deltaTime * direction);
+			direction *= -1;
+		}
 	}
 
 	void FixedUpdate () {

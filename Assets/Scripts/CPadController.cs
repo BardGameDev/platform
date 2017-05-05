@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CPadController : MonoBehaviour {
+	private LevelController controller;
 	private int rotating_speed;
 	private string direction;
 
 	public GameObject puzzleObject;
 	public GameObject Pad;
+	public string id = "-1";
 
-	/* Every interactable puzzle object should have two
-	functions called counterClockwise and clockwise 
-	that do something to the object when the pad is rotated*/
+	void Start(){
+		controller = GameObject.FindGameObjectWithTag ("Controller").GetComponent<LevelController> ();
+	}
 
 	void OnTriggerEnter(Collider Other){
 		if (gameObject.CompareTag ("CounterClockwise")) { // checks which way pad should be rotated
@@ -27,11 +29,8 @@ public class CPadController : MonoBehaviour {
 	void OnTriggerStay(Collider Other){
 		if(Other.gameObject.CompareTag("PlayerTrigger")){
 			Pad.transform.Rotate(new Vector3 (0, rotating_speed,  0) * Time.deltaTime);
-			puzzleObject.SendMessage (direction);
+			controller.cPadUsed (id, direction, puzzleObject);
 		}
 	}
-
-	void OnTriggerExit(Collider Other){}
-
 
 }

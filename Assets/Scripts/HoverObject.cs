@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HoverObject : MonoBehaviour {
-	private float hoverHeight = 1.5f;
-	private float hoverForce = 100f;
+	public float hoverHeight = 2.5f;
+	public float hoverForce = 100f;
 	private float proportionalHeight;
 
 	private Ray groundSensorRay;

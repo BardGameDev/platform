@@ -6,14 +6,10 @@ public class FanController : MonoBehaviour {
     private GameObject player;
 	private Transform blade;
 	private Rigidbody playerRB;
-	private bool buttonPressed;
 
+	public float fanForce = 40;
 
-    private float fanForce = 16;
-
-	void pressedButton(){
-		buttonPressed = true;
-	}
+	public bool active = true;
 
     void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
@@ -22,24 +18,22 @@ public class FanController : MonoBehaviour {
     }
 
 	void FixedUpdate(){
-		if (buttonPressed) { //Spin the blade when the button is pressed
+		if (active) { //Spin the blade when the button is pressed
 			blade.Rotate(new Vector3 (0, 0, -90) * Time.deltaTime * 2);
 		}
 	}
 
 	void OnTriggerEnter(Collider Other) {
-		if (Other.gameObject.CompareTag ("PlayerTrigger") && buttonPressed) {
+		if (Other.gameObject.CompareTag ("PlayerTrigger") && active) {
 			playerRB.AddForce (transform.up * fanForce); //Blow player away like a big fan would
 	
 		}
 	}
 
 	void OnTriggerStay(Collider Other) {
-		if (Other.gameObject.CompareTag ("PlayerTrigger") && buttonPressed) {
+		if (Other.gameObject.CompareTag ("PlayerTrigger") && active) {
 			playerRB.AddForce (transform.up * fanForce); //Stop when the player is out of the fan
 
 		}
     }
-
-	void OnTriggerExit(Collider Other) {}
 }

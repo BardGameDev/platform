@@ -6,16 +6,12 @@ public class SpeedPadController : MonoBehaviour {
 	private GameObject player;
 	private Rigidbody playerRB;
 
-	public bool buttonPressed;
-	public float speedBoost;
+	public bool active = true;
+	public float speedBoost = 40;
 
 	void Start(){
 		player = GameObject.FindGameObjectWithTag("Player"); //Find player object
 		playerRB = player.GetComponent<Rigidbody>();
-	}
-
-	void pressedButton(){
-		buttonPressed = true;
 	}
 
 	void counterClockwise(){
@@ -27,11 +23,8 @@ public class SpeedPadController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider Other) {
-		if(Other.gameObject.CompareTag("PlayerTrigger") && buttonPressed){
+		if(Other.gameObject.CompareTag("PlayerTrigger") && active){
 			playerRB.AddForce(transform.forward * speedBoost, ForceMode.Impulse); //When the player enters the collider, add force to it regardless of its current velocity
 		}
 	}
-
-	void OnTriggerStay(Collider Other) {}
-	void OnTriggerExit(Collider Other) {}
 }
