@@ -48,6 +48,5 @@ public class ButtonController : MonoBehaviour {
 			rend.material.color = Color.red;
 			beenClicked = true;
 		}
-	}
-		
+	}		
 }

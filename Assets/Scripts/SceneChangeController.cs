@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneChangeController : MonoBehaviour {
 
-	void OnTriggerEnter(){
-		SceneManager.LoadScene ("ClockInside", LoadSceneMode.Single);
+	void OnTriggerEnter(Collider Other){
+		if (Other.gameObject.CompareTag ("PlayerTrigger")) {
+			SceneManager.LoadScene ("ClockInside", LoadSceneMode.Single);
+		}
 	}
 }
