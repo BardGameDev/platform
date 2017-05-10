@@ -7,9 +7,11 @@ public class CPadController : MonoBehaviour {
 	private int rotating_speed;
 	private string direction;
 
+	public bool movable;
+
 	public GameObject puzzleObject;
 	public GameObject Pad;
-	public string id = "-1";
+	public string id;
 
 	void Start(){
 		controller = GameObject.FindGameObjectWithTag ("Controller").GetComponent<LevelController> ();
@@ -27,10 +29,12 @@ public class CPadController : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider Other){
-		if(Other.gameObject.CompareTag("PlayerTrigger")){
-			Pad.transform.Rotate(new Vector3 (0, rotating_speed,  0) * Time.deltaTime);
-			controller.cPadUsed (id, direction, puzzleObject);
-		}
+		if (Other.gameObject.CompareTag ("PlayerTrigger")) {
+			if (movable) {
+				Pad.transform.Rotate (Vector3.up * rotating_speed * Time.deltaTime);
+			}
+			controller.cPadUsed (gameObject, id, direction, puzzleObject);
+		}	
 	}
 
 }

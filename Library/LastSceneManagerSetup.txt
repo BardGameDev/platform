@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/ClockOutside.unity
+- path: Assets/Scenes/ClockInside.unity
   isLoaded: 1
   isActive: 1

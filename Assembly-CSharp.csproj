@@ -46,13 +46,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\LerpDropTrigger.cs" />
      <Compile Include="Assets\Scripts\ButtonController.cs" />
      <Compile Include="Assets\Scripts\CPadController.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\DropTriggerController.cs" />
      <Compile Include="Assets\Scripts\FanController.cs" />
      <Compile Include="Assets\Scripts\GearController.cs" />
-     <Compile Include="Assets\Scripts\GearControllerLevel1.cs" />
      <Compile Include="Assets\Scripts\GravityOrbController.cs" />
      <Compile Include="Assets\Scripts\HoverObject.cs" />
      <Compile Include="Assets\Scripts\LevelController.cs" />

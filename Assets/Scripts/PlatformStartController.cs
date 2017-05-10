@@ -9,7 +9,6 @@ public class PlatformStartController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag ("PlayerTrigger") && TouchedForTheVeryFirstTime) {
-			print ("DONT TOUCH ME EVER AGAIN");
 			TouchedForTheVeryFirstTime = false;
 			StartCoroutine(movePlatforms());
 		}
