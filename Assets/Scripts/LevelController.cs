@@ -31,28 +31,45 @@ public class LevelController : MonoBehaviour {
 		
 // LEVEL SPECIFIC FROM HERE ON OUT
 
-	private bool isClockFixed;
+	public bool isClockFixed;
+	public bool activateLerp;
 
-	private bool activateLerp;
 	private float startTimeLerp;
 	private float distLerp;
 	private Vector3 finalPos;
 
+	private bool hourHand;
+	private bool minHand;
+	private GameObject player;
+
 	void Start(){
-		isClockFixed = false;
+		isClockFixed = true;// = false;
 		activateLerp = false;
-		finalPos = new Vector3 (0.34f, -4.39f, 18f);
+		hourHand = false;
+		minHand = false;
+		player =  GameObject.FindGameObjectWithTag ("Player");
+
 	}
 
 	public void clockFixed(){
 		isClockFixed = true;
 	}
 
+	public void deactivateLerp(){
+		activateLerp = false;
+	}
+		
+	void checkClock(){
+		if (hourHand && minHand) {
+			//Destroy (player);
+		}
+	}
+
 	void Update(){
 		if (startTimer) {
 			timeLeft -= Time.deltaTime;
-			print ("timeleft: " + timeLeft.ToString ());
-			if (timeLeft < 0) {
+			//print ("timeleft: " + timeLeft.ToString ());
+			if (timeLeft <= 0) {
 				timerDone (timerID);
 			}
 		}
@@ -69,12 +86,14 @@ public class LevelController : MonoBehaviour {
 	public void dropTrigger(string id, GameObject missingChild){
 		//check if drop trigger id equates to pickedUpName, if so, put object in place by activating missingChild
 	}
-	public void dropLerp(GameObject missing){
+	public void dropLerp(GameObject missing, Vector3 pos, Behaviour exit){
+		exit.enabled = true;
+		finalPos = pos;
 		startTimeLerp = Time.time;
 		distLerp = Vector3.Distance(missing.transform.position, finalPos);
 		curr_dropoff = missing;
 		activateLerp = true;
-		//Lerp that bitch into place
+		//Lerp that bitch into p
 		isClockFixed = true;
 	}
 	//Called by PickUpController
@@ -90,21 +109,20 @@ public class LevelController : MonoBehaviour {
 	}
 
 	public void buttonActivate(string id, GameObject puzzle){
-		print (id);
+		//print (id);
 		if(id.Equals("platButton")){
 			puzzle.GetComponent<MovingPatformController> ().toggleActive ();
 		}
 	}
 
 	public void buttonDeactivate(string id, GameObject puzzle){
-		print (id);
+		//print (id);
 		if(id.Equals("platButton")){
 			puzzle.GetComponent<MovingPatformController> ().toggleActive ();
 		}
 	}
 
 	public void buttonCount(string id, float timer, bool beenClicked, GameObject button, GameObject puzzle){
-
 		timerID = id;
 		timeLeft = timer;
 		curr_button_script = button.GetComponent<ButtonController>();
@@ -119,22 +137,46 @@ public class LevelController : MonoBehaviour {
 	void timerDone(string id){
 		startTimer = false;
 		curr_button_script.ToggleClicked ();
+
 		if (id.Equals("clock_fan")){
 			curr_button_puzzle.GetComponent<FanController> ().active = false;
 		}
 	}
 
 	//Called by cPad controller
-	public void cPadUsed(GameObject self, string id, string direction, GameObject puzzle){
+	public void cPadUsed (GameObject self, string id, string direction, GameObject puzzle)
+	{
 		if (isClockFixed) {			
-			if (id.Equals ("clock")) {
-				if(direction.Equals("counterClockwise")){
-					puzzle.transform.Rotate (Vector3.right);
-				}else{
-					puzzle.transform.Rotate (Vector3.left);
+			if (id.Equals ("clockMin") || id.Equals ("clockHour")) {
+				if (direction.Equals ("counterClockwise")) {
+					puzzle.transform.Rotate (Vector3.right * .6f);
+				} else {
+					puzzle.transform.Rotate (Vector3.left * .6f);
+				}
+				if (handsBool(puzzle)) { // is hand in the correct place, if so check if puzzle is done
+					if (id.Equals ("clockMin")) {
+						minHand = true;
+					} else
+						hourHand = true;
+					checkClock ();
+				} else {
+					if (id.Equals ("clockMin")) {
+						minHand = false;
+					} else
+						hourHand = false;
 				}
 			}
 		}
 	}
+	//checks to see if hand is within 10 degrees of 12 o'clock
+	bool handsBool(GameObject hand){
+		if (hand.transform.rotation.eulerAngles.y == 0f && hand.transform.rotation.eulerAngles.z == 0f) { //deals with wierd Euler Angle problem
+			if(hand.transform.rotation.eulerAngles.x< 10f || hand.transform.rotation.eulerAngles.x > 350){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 		
 }

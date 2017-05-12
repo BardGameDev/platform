@@ -5,11 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	public Rigidbody playerRB; 
-    private Rigidbody cubeRB;
 	private Vector3 gravDown;
 	private Transform cam;
-
-	public GameObject cubePrefab;
 
 	private float offsetX;
 	private float offsetZ;
@@ -25,7 +22,6 @@ public class PlayerController : MonoBehaviour {
 
         topSpeed = speed * 1.2f;
 		playerRB = GetComponent<Rigidbody> ();
-		cubeRB = cubePrefab.GetComponent<Rigidbody>();
 
 		gravDown = new Vector3(0, -25, 0);
 

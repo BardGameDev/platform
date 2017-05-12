@@ -14,6 +14,7 @@ public class ButtonController : MonoBehaviour {
 	private bool beenClicked = false;
 
 	void Start(){
+		print (beenClicked.ToString ());
 		rend = GetComponent<Renderer>();
 		controller =  GameObject.FindGameObjectWithTag ("Controller").GetComponent<LevelController>();
 	}
@@ -33,8 +34,8 @@ public class ButtonController : MonoBehaviour {
 
 	void OnTriggerExit(Collider Other){
 		if (Other.gameObject.CompareTag ("PlayerTrigger")) {
-			ToggleClicked ();
 			if (type == 3) {
+				ToggleClicked ();
 				controller.buttonDeactivate (id, puzzleObject);
 			}
 		}
