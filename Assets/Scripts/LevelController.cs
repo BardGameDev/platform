@@ -10,7 +10,7 @@ public class LevelController : MonoBehaviour {
 	private GameObject curr_button_puzzle;
 	private GameObject curr_dropoff;
 
-	private string pickedUpName = ""; 
+	//private string pickedUpName = ""; 
 	private GameObject pickedUpObj;
 
 	private string timerID; // which timer is currently active or was last active
@@ -33,6 +33,7 @@ public class LevelController : MonoBehaviour {
 
 	public bool isClockFixed;
 	public bool activateLerp;
+	public bool rotateFin;
 
 	private float startTimeLerp;
 	private float distLerp;
@@ -40,19 +41,35 @@ public class LevelController : MonoBehaviour {
 
 	private bool hourHand;
 	private bool minHand;
-	private GameObject player;
+	private GameObject[] clockParts = new GameObject[3];
+	private GameObject[] FIN = new GameObject[3];
+	private GameObject FINDAD;
 
 	void Start(){
-		isClockFixed = true;// = false;
+		isClockFixed = false;
 		activateLerp = false;
+		rotateFin = false;
 		hourHand = false;
 		minHand = false;
-		player =  GameObject.FindGameObjectWithTag ("Player");
 
+		clockParts = GameObject.FindGameObjectsWithTag ("Clock");
+		FIN = GameObject.FindGameObjectsWithTag ("Finish");
+		FINDAD = GameObject.FindGameObjectWithTag ("FINDAD");
 	}
 
-	public void clockFixed(){
-		isClockFixed = true;
+	public void finishGame(){
+		clockParts = GameObject.FindGameObjectsWithTag ("Clock");
+		FIN = GameObject.FindGameObjectsWithTag ("Finish");
+		FINDAD = GameObject.FindGameObjectWithTag ("FINDAD");
+
+		isClockFixed = false;
+
+		for (int n = 0; n < 3; n++) {
+			Destroy (clockParts [n]);
+			FIN [n].GetComponent<MeshRenderer> ().enabled = true;
+		}
+
+		rotateFin = true;
 	}
 
 	public void deactivateLerp(){
@@ -61,14 +78,13 @@ public class LevelController : MonoBehaviour {
 		
 	void checkClock(){
 		if (hourHand && minHand) {
-			//Destroy (player);
+			finishGame ();
 		}
 	}
-
+		
 	void Update(){
 		if (startTimer) {
 			timeLeft -= Time.deltaTime;
-			//print ("timeleft: " + timeLeft.ToString ());
 			if (timeLeft <= 0) {
 				timerDone (timerID);
 			}
@@ -81,26 +97,29 @@ public class LevelController : MonoBehaviour {
 			float fracJourney = distCovered / distLerp;
 			curr_dropoff.transform.position = Vector3.Lerp (curr_dropoff.transform.position, finalPos, fracJourney);
 		}
+		if (rotateFin) {
+			FINDAD.transform.Rotate (Vector3.forward * Time.deltaTime * 50f);
+		}
 	}
 		
 	public void dropTrigger(string id, GameObject missingChild){
 		//check if drop trigger id equates to pickedUpName, if so, put object in place by activating missingChild
 	}
-	public void dropLerp(GameObject missing, Vector3 pos, Behaviour exit){
-		exit.enabled = true;
+
+	public void dropLerp(GameObject missing, Vector3 pos){
 		finalPos = pos;
 		startTimeLerp = Time.time;
 		distLerp = Vector3.Distance(missing.transform.position, finalPos);
 		curr_dropoff = missing;
 		activateLerp = true;
-		//Lerp that bitch into p
+		//Lerp into place
 		isClockFixed = true;
 	}
+
 	//Called by PickUpController
 	public void pickUpObject(string id, GameObject pickUp){
 		//set local id to global pickedUpName variable
 		//set local pickUp obj to global pickedUpObj variable.
-		
 	}
 
 	//Called by ButtonController
@@ -144,9 +163,8 @@ public class LevelController : MonoBehaviour {
 	}
 
 	//Called by cPad controller
-	public void cPadUsed (GameObject self, string id, string direction, GameObject puzzle)
-	{
-		if (isClockFixed) {			
+	public void cPadUsed (GameObject self, string id, string direction, GameObject puzzle){
+		if (isClockFixed) {
 			if (id.Equals ("clockMin") || id.Equals ("clockHour")) {
 				if (direction.Equals ("counterClockwise")) {
 					puzzle.transform.Rotate (Vector3.right * .6f);

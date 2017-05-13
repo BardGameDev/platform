@@ -1,0 +1,17 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/LerpDropTrigger.cs">
+    <Files>
+      <File FileName="Assets/Scripts/LevelController.cs" Line="109" Column="56" />
+      <File FileName="Assets/Scripts/SceneChangeController.cs" Line="22" Column="35" />
+      <File FileName="Assets/Scripts/LerpDropTrigger.cs" Line="25" Column="42" />
+      <File FileName="Assets/Scripts/CPadController.cs" Line="36" Column="41" />
+      <File FileName="Assets/Scripts/ButtonController.cs" Line="16" Column="15" />
+      <File FileName="Assets/Scripts/CameraController.cs" Line="22" Column="60" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

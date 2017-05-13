@@ -6,6 +6,7 @@ public class LerpDropTrigger : MonoBehaviour {
 
 	private LevelController controller;
 	private Behaviour exit;
+	private Behaviour dropOffHalo;
 
 	public GameObject missing;
 	public Vector3 position;
@@ -13,12 +14,15 @@ public class LerpDropTrigger : MonoBehaviour {
 	void Start(){
 		controller = GameObject.FindGameObjectWithTag ("Controller").GetComponent<LevelController> ();
 		exit = (Behaviour)GameObject.FindGameObjectWithTag ("Exit").GetComponent ("Halo");
+		dropOffHalo = (Behaviour)gameObject.GetComponent ("Halo");
 	}
 
 
 	void OnTriggerEnter(Collider other){
 		if (other.CompareTag("GearPickUp")){
-			controller.dropLerp (missing, position, exit);
+			exit.enabled = true;
+			dropOffHalo.enabled = false;
+			controller.dropLerp (missing, position);
 		}			
 	}
 }
